@@ -1,0 +1,439 @@
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+    color: #000000;
+    background-color: #f0f0f0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.preview-area {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 21cm; /* A4 width */
+    height: 29.7cm; /* A4 height */
+    position: relative;
+    margin: 0 auto;
+    padding: 1cm 1.5cm; /* Adjusted to match image margins */
+    box-sizing: border-box;
+    border: none; /* Removed border for exact match */
+    overflow: hidden;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    line-height: 1.3;
+    padding: 0 5px;
+}
+
+.left,
+.right {
+    flex: 1;
+    font-size: 10pt;
+    line-height: 1.4;
+}
+
+.right {
+    font-family: 'Noto Sans Bengali', sans-serif;
+    font-weight: normal;
+}
+
+.right .doctor-name {
+    font-weight: 600;
+}
+
+.right .title {
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+.left p,
+.right p {
+    margin: 0 0 2px 0;
+}
+
+.doctor-name {
+    font-size: 15pt;
+    font-weight: 600;
+    margin-bottom: 2px !important;
+    color: #000;
+}
+
+.title {
+    font-weight: 600;
+    font-size: 11pt;
+    margin: 3px 0 4px 0 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.2px;
+    color: #333;
+}
+
+.left p,
+.right p {
+    color: #444;
+    line-height: 1.3;
+    margin: 0 0 3px 0;
+}
+
+.left p:nth-child(2),
+.right p:nth-child(2) {
+    font-weight: 500;
+    color: #333;
+}
+
+.left {
+    text-align: left;
+}
+
+.right {
+    text-align: right;
+    font-family: 'Noto Sans Bengali', sans-serif;
+}
+
+.doctor-name {
+    font-weight: bold;
+    font-size: 12pt;
+    margin: 0;
+    padding: 0;
+}
+
+.title {
+    font-weight: bold;
+    margin: 2px 0; /* Adjusted to match image spacing */
+}
+
+.middle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 20px;
+}
+
+.motto {
+    font-size: 12pt;
+    margin: 0 0 5px 0;
+    font-weight: bold;
+    text-align: center;
+}
+
+.logo {
+    margin: 5px 0;
+    line-height: 1;
+}
+
+.logo img {
+    width: 60px;  /* Adjust this value to match the size in the reference image */
+    height: auto;
+    display: block;
+}
+
+.reg {
+    text-align: center;
+    font-size: 9pt;
+    margin-top: 5px;
+    margin-bottom: 0;
+    font-weight: normal;
+    color: #333;
+}
+
+.patient-info {
+    font-size: 10pt;
+    margin-bottom: 15px;
+    border-top: 1px solid #000000;
+    padding-top: 12px;
+    line-height: 1.8;
+    color: #333;
+    letter-spacing: 0.5px;
+}
+
+.line {
+    display: inline-block;
+    border-bottom: 1px dotted #000000;
+    vertical-align: bottom;
+    height: 1.2em;
+    margin: 0 5px;
+}
+
+.name-line {
+    width: 200px;
+}
+
+.age-line {
+    width: 50px;
+}
+
+.sex-line {
+    width: 50px;
+}
+
+.date-line {
+    width: 120px;
+}
+
+.prescription-area {
+    height: 20cm;
+    /* border-left: 2px solid #000000; */
+    padding-left: 15px;
+    margin-top: 15px;
+    line-height: 1.5;
+    position: relative;
+}
+
+.footer {
+    position: absolute;
+    bottom: 1cm;
+    left: 1.5cm;
+    right: 1.5cm;
+    font-family: 'Noto Sans Bengali', sans-serif;
+    font-size: 9pt;
+    color: #000000;
+    border-top: 1px solid #000000;
+    padding-top: 8px;
+    text-align: left;
+    line-height: 1.4;
+}
+
+/* Mobile Responsive Styles */
+.mobile-preview {
+    display: none;
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 85%;
+    height: 58vh;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #f0f0f0;
+    margin: 0 auto;
+    padding: 10px;
+    box-sizing: border-box;
+    box-shadow: 0 0 20px rgba(0,0,0,0.15);
+    border-radius: 8px;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 1000;
+}
+
+.preview-message {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 14px;
+    pointer-events: none;
+}
+
+@media screen and (max-width: 768px) {
+    body {
+        padding: 0;
+        margin: 0;
+        background-color: #f0f0f0;
+        height: 100vh;
+        width: 100%;
+        position: fixed;
+        overflow: hidden;
+    }
+    
+    html, body {
+        overscroll-behavior: none;
+        height: 100%;
+        width: 100%;
+    }
+
+    @media screen and (max-width: 768px) {
+        .preview-area::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+
+        .preview-area::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .preview-area::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+    }
+    
+    .button-group {
+        position: fixed;
+        bottom: 20px;
+        left: 0;
+        right: 0;
+        padding: 10px;
+        background-color: rgba(255,255,255,0.9);
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        z-index: 1000;
+        flex-wrap: nowrap;
+        justify-content: space-around;
+    }
+
+    .button-group button {
+        font-size: 12pt;
+        padding: 8px 15px;
+        min-width: auto;
+        flex: 0 1 auto;
+        margin: 0 5px;
+    }
+
+    .preview-area {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+        background-color: #f0f0f0;
+        display: none;
+        padding: 20px;
+        box-sizing: border-box;
+        scrollbar-width: thin;
+    }
+
+    .container {
+        width: 21cm;
+        min-width: 21cm;
+        margin: 0 auto;
+        background-color: white;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        position: relative;
+        transform-origin: top left;
+        transform: scale(0.9);
+    }
+    
+    /* Add visual cue for scrolling */
+    .preview-area::after {
+        content: "← Scroll to view →";
+        position: fixed;
+        bottom: 80px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 14px;
+        pointer-events: none;
+        animation: fadeOut 3s forwards;
+        animation-delay: 3s;
+    }
+
+    @keyframes fadeOut {
+        to {
+            opacity: 0;
+        }
+    }
+}
+
+/* Print-specific styles for A4 size */
+@media print {
+    @page {
+        size: A4 portrait;
+        margin: 0;
+    }
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: white;
+        height: 29.7cm;
+        overflow: hidden;
+    }
+    .container {
+        border: none;
+        margin: 0;
+        padding: 1cm 1.5cm;
+        width: 21cm;
+        height: 29.7cm;
+        box-shadow: none;
+        background-color: white;
+        position: relative;
+        overflow: hidden;
+    }
+    .prescription-area {
+        page-break-inside: avoid;
+    }
+    .button-group {
+        display: none !important;
+    }
+    body {
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
+    .footer {
+        position: absolute;
+        bottom: 1cm;
+    }
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    padding: 0 10px;
+}
+
+button {
+    padding: 12px 24px;
+    font-size: 14pt;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: all 0.3s;
+    flex: 1;
+    min-width: 200px;
+    max-width: 300px;
+    white-space: nowrap;
+}
+
+button:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+@media screen and (max-width: 768px) {
+    .button-group {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    button {
+        width: 100%;
+        max-width: none;
+        padding: 15px;
+        font-size: 16pt;
+    }
+}

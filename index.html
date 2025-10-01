@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prescription Pad - Dr. Tapaprabha Roy</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Brush+Script+MT&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="mobile-preview">
+        <div class="preview-message">Tap to view full prescription</div>
+    </div>
+    <div class="preview-area">
+    <div class="container">
+        <div class="header">
+            <div class="left">
+                <p class="doctor-name">Dr. Tapaprabha Roy</p>
+                <p>MBBS, MS Orthopaedics(Cal)</p>
+                <p class="title">Consultant Trauma, Arthroscopy, Arthroplasty Surgeon</p>
+                <p>Attached with Calcutta National Medical College & Hospital</p>
+            </div>
+            <div class="middle">
+                <p class="motto">I Treat, HE Cures</p>
+                <div class="logo"><img src="dr_logo.png" alt="Doctor Logo" /></div>
+                <p class="reg">Regd. No.-87928</p>
+            </div>
+            <div class="right">
+                <p class="doctor-name">ডা. তপপ্রভ রায়</p>
+                <p>এম বি বি এস, অেনার্স, এম এস অর্থপেডিকস (ক্যাল)</p>
+                <p class="title">অভিজ্ঞ ট্রমা, আর্থোস্কোপি, আর্মোপ্লাস্টি বিশেষজ্ঞ</p>
+                <p>বর্তমানে ক্যালকাটা ন্যাশনাল মেডিক্যাল কলেজ ও হাসপাতালের সঙ্গে যুক্ত</p>
+            </div>
+        </div>
+        <div class="patient-info">
+            NAME: <span class="line name-line"></span> AGE: <span class="line age-line"></span> SEX: <span class="line sex-line"></span> DATE: <span class="line date-line"></span>
+        </div>
+        <div class="prescription-area">
+        </div>
+        <div class="footer">
+            বিঃদ্রঃ: পুরোনো প্রেসক্রিপশন সাথে আনবেন। জরুরি অবস্থায় নিকটবর্তী হাসপাতালে যোগ করুন।
+        </div>
+    </div>
+    </div>
+    <div class="button-group">
+        <button onclick="window.print()">Print as A4</button>
+        <button onclick="savePDF()">Save as PDF</button>
+        <button onclick="saveImage()">Save as Image</button>
+    </div>
+
+    <script>
+        // Initialize mobile preview functionality
+        function initializeMobilePreview() {
+            const mobilePreview = document.querySelector('.mobile-preview');
+            const previewArea = document.querySelector('.preview-area');
+            const container = document.querySelector('.container');
+            const buttonGroup = document.querySelector('.button-group');
+
+            // Function to generate preview
+            function generatePreview() {
+                // Ensure all elements are properly displayed for capture
+                document.body.style.opacity = '0';
+                previewArea.style.display = 'flex';
+                previewArea.style.opacity = '1';
+                buttonGroup.style.display = 'none';
+                container.style.transform = 'none';
+                
+                // Force layout recalculation
+                container.offsetHeight;
+
+                // Capture the prescription
+                html2canvas(container, {
+                    scale: 2,
+                    width: 793,
+                    height: 1122,
+                    useCORS: true,
+                    logging: true,
+                    allowTaint: true,
+                    backgroundColor: '#ffffff',
+                    onclone: function(clonedDoc) {
+                        const clonedContainer = clonedDoc.querySelector('.container');
+                        clonedContainer.style.transform = 'none';
+                    }
+                }).then(canvas => {
+                    const dataUrl = canvas.toDataURL('image/png');
+                    mobilePreview.style.backgroundImage = `url(${dataUrl})`;
+                    document.body.style.opacity = '1';
+                    
+                    // Reset display states after capture
+                    if (window.innerWidth <= 768) {
+                        previewArea.style.display = 'none';
+                        mobilePreview.style.display = 'flex';
+                        buttonGroup.style.display = 'none';
+                    }
+                }).catch(error => {
+                    console.error('Preview generation failed:', error);
+                    document.body.style.opacity = '1';
+                });
+            }
+
+            // Generate preview when images are loaded
+            if (document.readyState === 'complete') {
+                generatePreview();
+            } else {
+                window.addEventListener('load', generatePreview);
+            }
+
+            // Handle preview click
+            mobilePreview.addEventListener('click', () => {
+                mobilePreview.style.display = 'none';
+                previewArea.style.display = 'flex';
+                buttonGroup.style.display = 'flex';
+            });
+
+            // Check if mobile view
+            function checkMobileView() {
+                if (window.innerWidth <= 768) {
+                    mobilePreview.style.display = 'flex';
+                    previewArea.style.display = 'none';
+                    buttonGroup.style.display = 'none';
+                } else {
+                    mobilePreview.style.display = 'none';
+                    previewArea.style.display = 'flex';
+                    buttonGroup.style.display = 'flex';
+                }
+            }
+
+            // Check on load and resize
+            checkMobileView();
+            window.addEventListener('resize', checkMobileView);
+        }
+
+        // Initialize after page load
+        window.addEventListener('load', initializeMobilePreview);
+
+        function savePDF() {
+            window.print();
+        }
+
+        function saveImage() {
+            // Hide buttons before capturing
+            const buttonGroup = document.querySelector('.button-group');
+            buttonGroup.style.display = 'none';
+
+            html2canvas(document.querySelector('.container'), {
+                scale: 2,
+                width: 793,  // A4 width in pixels at 96 DPI
+                height: 1122  // A4 height in pixels at 96 DPI
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'prescription.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+                buttonGroup.style.display = 'flex';
+            });
+        }
+    </script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+</body>
+</html>
