@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prescription Pad - Dr. Tapaprabha Roy</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;700&display=swap" rel="stylesheet">
@@ -120,6 +120,14 @@
             mobilePreview.addEventListener('click', () => {
                 document.querySelector('.mobile-preview-container').style.display = 'none';
                 previewArea.style.display = 'flex';
+            });
+
+            // Handle preview area click to return to mobile preview
+            previewArea.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    document.querySelector('.mobile-preview-container').style.display = 'flex';
+                    previewArea.style.display = 'none';
+                }
             });
 
             // Check if mobile view

@@ -404,11 +404,10 @@ body {
         transform-origin: top center;
     }
     
-    /* Add visual cue for scrolling */
-    .preview-area::after {
-        content: "← Scroll to view →";
+    /* Add visual cues for scrolling and return action */
+    .preview-area::after,
+    .preview-area::before {
         position: fixed;
-        bottom: 80px;
         left: 50%;
         transform: translateX(-50%);
         background-color: rgba(0, 0, 0, 0.7);
@@ -420,6 +419,16 @@ body {
         animation: fadeOut 3s forwards;
         animation-delay: 3s;
     }
+
+    .preview-area::after {
+        content: "← Scroll to view →";
+        bottom: 80px;
+    }
+
+    /* .preview-area::before {
+        content: "Tap anywhere to return";
+        top: 20px;
+    } */
 
     @keyframes fadeOut {
         to {
