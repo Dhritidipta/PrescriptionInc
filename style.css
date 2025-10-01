@@ -76,6 +76,7 @@ body {
     box-sizing: border-box;
     border: none; /* Removed border for exact match */
     overflow: hidden;
+    background-color: white;
 }
 
 .header {
@@ -233,11 +234,31 @@ body {
 
 .prescription-area {
     height: 20cm;
-    /* border-left: 2px solid #000000; */
     padding-left: 15px;
     margin-top: 15px;
     line-height: 1.5;
     position: relative;
+}
+
+.prescription-area::after {
+    content: '';
+    position: absolute;
+    left: 33.33%; /* Position at 1/3rd of the width */
+    top: 0;
+    bottom: 0;
+    width: 2px; /* Make the line slightly thicker */
+    background-color: #999; /* Greyish color like in the image */
+}
+
+.prescription-area::before {
+    content: 'Rx.';
+    position: absolute;
+    top: 0;
+    left: calc(33.33% + 15px); /* Position after the vertical line plus some padding */
+    font-family: 'Brush Script MT', cursive;
+    font-size: 24px;
+    color: #000;
+    line-height: 1;
 }
 
 .footer {
