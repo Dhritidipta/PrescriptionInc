@@ -7,6 +7,8 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+}
+
 .mobile-preview-container {
     display: none;
     position: fixed;
@@ -25,7 +27,8 @@ body {
 
 .mobile-preview {
     width: 85%;
-    height: 65vh;
+    height: auto; /* Changed from fixed 65vh to auto to allow full content height */
+    min-height: 65vh; /* Minimum height to ensure visibility */
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
@@ -34,6 +37,22 @@ body {
     border-radius: 8px;
     cursor: pointer;
     background-color: white;
+    overflow-y: auto; /* Ensure scrolling for content */
+    position: relative; /* Maintain positioning context */
+    padding: 0; /* Remove padding to avoid extra space */
+}
+
+.mobile-preview .container {
+    width: 21cm;
+    height: auto; /* Allow content to determine height */
+    position: relative; /* Remove absolute positioning to avoid cropping */
+    transform: scale(0.4); /* Keep scale but adjust context */
+    transform-origin: top left; /* Change origin to top left for better scrolling */
+    margin: 0 auto;
+    padding: 1cm 1.5cm;
+    box-sizing: border-box;
+    border: none;
+    overflow: visible; /* Ensure all content is visible */
 }
 
 .preview-area {
@@ -325,52 +344,34 @@ body {
         width: 100%;
     }
 
-    @media screen and (max-width: 768px) {
-        .preview-area::-webkit-scrollbar {
-            width: 4px;
-            height: 4px;
-        }
+    .preview-area::-webkit-scrollbar {
+        width: 4px;
+        height: 4px;
+    }
 
-        .preview-area::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
+    .preview-area::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
 
-        .preview-area::-webkit-scrollbar-thumb {
-            background: #888;
-            border-radius: 4px;
-        }
+    .preview-area::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 4px;
     }
     
-.button-group {
-    width: 100%;
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    flex-wrap: wrap;
-    padding: 15px 20px;
-    box-sizing: border-box;
-    background-color: #f0f0f0;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
+    .button-group {
+        width: 100%;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        flex-wrap: wrap;
+        padding: 15px 20px;
+        box-sizing: border-box;
+        background-color: #f0f0f0;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
 
-.button-group button {
-    flex: 1;
-    min-width: 140px;
-    max-width: 200px;
-    padding: 12px 15px;
-    font-size: 14px;
-    white-space: nowrap;
-    border: none;
-    border-radius: 6px;
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
-}
-
-.button-group button:hover {
-    background-color: #0056b3;
-}    .button-group button {
+    .button-group button {
         font-size: 12pt;
         padding: 8px 15px;
         min-width: auto;
@@ -384,25 +385,23 @@ body {
         left: 0;
         right: 0;
         bottom: 0;
-        overflow-x: scroll;
-        overflow-y: scroll;
+        overflow: auto;
         -webkit-overflow-scrolling: touch;
         background-color: #f0f0f0;
         display: none;
-        padding: 20px;
         box-sizing: border-box;
-        scrollbar-width: thin;
+        min-height: 100vh;
     }
 
-    .container {
+    .preview-area .container {
         width: 21cm;
-        min-width: 21cm;
-        margin: 0 auto;
+        position: absolute;
+        left: 50%;
+        margin: 20px auto;
         background-color: white;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-        position: relative;
-        transform-origin: top left;
-        transform: scale(0.4);
+        transform: scale(0.4) translateX(-50%);
+        transform-origin: top center;
     }
     
     /* Add visual cue for scrolling */
@@ -512,5 +511,4 @@ button:hover {
         padding: 15px;
         font-size: 16pt;
     }
-}
 }

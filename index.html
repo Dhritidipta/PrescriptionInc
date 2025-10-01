@@ -13,7 +13,7 @@
         <div class="mobile-preview"></div>
         <div class="preview-message">Tap to view full prescription</div>
         <div class="mobile-button-group">
-            <button onclick="window.print()">Print as A4</button>
+            <!-- <button onclick="window.print()">Print as A4</button> -->
             <button onclick="savePDF()">Save as PDF</button>
             <button onclick="saveImage()">Save as Image</button>
         </div>
@@ -69,7 +69,9 @@
                 document.body.style.opacity = '0';
                 previewArea.style.display = 'flex';
                 previewArea.style.opacity = '1';
-                buttonGroup.style.display = 'none';
+                if (window.innerWidth <= 768) {
+                    buttonGroup.style.display = 'none';
+                }
                 container.style.transform = 'none';
                 
                 // Force layout recalculation
@@ -98,6 +100,8 @@
                         previewArea.style.display = 'none';
                         mobilePreview.style.display = 'flex';
                         buttonGroup.style.display = 'none';
+                    } else {
+                        buttonGroup.style.display = 'flex';
                     }
                 }).catch(error => {
                     console.error('Preview generation failed:', error);
@@ -139,24 +143,80 @@
         window.addEventListener('load', initializeMobilePreview);
 
         function savePDF() {
+            // Hide all buttons and UI elements before printing
+            const mobilePreviewContainer = document.querySelector('.mobile-preview-container');
+            const buttonGroup = document.querySelector('.button-group');
+            const previewArea = document.querySelector('.preview-area');
+            const container = document.querySelector('.container');
+            
+            // Store original display values
+            const mobilePreviewDisplay = mobilePreviewContainer.style.display;
+            const buttonGroupDisplay = buttonGroup.style.display;
+            const previewAreaDisplay = previewArea.style.display;
+            
+            // Hide UI elements
+            mobilePreviewContainer.style.display = 'none';
+            buttonGroup.style.display = 'none';
+            previewArea.style.display = 'flex';
+            container.style.transform = 'none';
+            
+            // Print
             window.print();
+            
+            // Restore original display values
+            setTimeout(() => {
+                mobilePreviewContainer.style.display = mobilePreviewDisplay;
+                buttonGroup.style.display = buttonGroupDisplay;
+                previewArea.style.display = previewAreaDisplay;
+                if (window.innerWidth <= 768) {
+                    container.style.transform = 'scale(0.4) translateX(-50%)';
+                }
+            }, 100);
         }
 
         function saveImage() {
-            // Hide buttons before capturing
+            // Hide all UI elements before capturing
+            const mobilePreviewContainer = document.querySelector('.mobile-preview-container');
             const buttonGroup = document.querySelector('.button-group');
+            const previewArea = document.querySelector('.preview-area');
+            const container = document.querySelector('.container');
+            
+            // Store original display values
+            const mobilePreviewDisplay = mobilePreviewContainer.style.display;
+            const buttonGroupDisplay = buttonGroup.style.display;
+            const previewAreaDisplay = previewArea.style.display;
+            
+            // Hide UI elements and prepare container
+            mobilePreviewContainer.style.display = 'none';
             buttonGroup.style.display = 'none';
+            previewArea.style.display = 'flex';
+            container.style.transform = 'none';
 
-            html2canvas(document.querySelector('.container'), {
+            html2canvas(container, {
                 scale: 2,
                 width: 793,  // A4 width in pixels at 96 DPI
-                height: 1122  // A4 height in pixels at 96 DPI
+                height: 1122,  // A4 height in pixels at 96 DPI
+                backgroundColor: '#ffffff',
+                useCORS: true,
+                logging: false,
+                allowTaint: true,
+                onclone: function(clonedDoc) {
+                    const clonedContainer = clonedDoc.querySelector('.container');
+                    clonedContainer.style.transform = 'none';
+                }
             }).then(canvas => {
                 const link = document.createElement('a');
                 link.download = 'prescription.png';
                 link.href = canvas.toDataURL('image/png');
                 link.click();
-                buttonGroup.style.display = 'flex';
+                
+                // Restore original display values
+                mobilePreviewContainer.style.display = mobilePreviewDisplay;
+                buttonGroup.style.display = buttonGroupDisplay;
+                previewArea.style.display = previewAreaDisplay;
+                if (window.innerWidth <= 768) {
+                    container.style.transform = 'scale(0.4) translateX(-50%)';
+                }
             });
         }
     </script>
