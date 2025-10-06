@@ -20,6 +20,9 @@
     </div>
     <div class="preview-area">
     <div class="container">
+        <div class="complimentary">
+            <span>Complimentary</span>
+        </div>
         <div class="header">
             <div class="left">
                 <p class="doctor-name">Dr. Tapaprabha Roy</p>
@@ -30,12 +33,12 @@
             <div class="middle">
                 <p class="motto">I Treat, HE Cures</p>
                 <div class="logo"><img src="dr_logo.png" alt="Doctor Logo" /></div>
-                <p class="reg">Regd. No.-87928</p>
+                <p class="reg">Regd. No.- 86986</p>
             </div>
             <div class="right">
                 <p class="doctor-name">ডা. তপপ্রভ রায়</p>
-                <p>এম বি বি এস, অেনার্স, এম এস অর্থপেডিকস (ক্যাল)</p>
-                <p class="title">অভিজ্ঞ ট্রমা, আর্থোস্কোপি, আর্মোপ্লাস্টি বিশেষজ্ঞ</p>
+                <p>এম বি বি এস, এম এস অর্থোপেডিকস (ক্যাল)</p>
+                <p class="title">অভিজ্ঞ ট্রমা, আর্থ্রোস্কোপি, আর্থ্রোপ্লাস্টি সার্জন</p>
                 <p>বর্তমানে ক্যালকাটা ন্যাশনাল মেডিক্যাল কলেজ ও হাসপাতালের সঙ্গে যুক্ত</p>
             </div>
         </div>
@@ -43,10 +46,9 @@
             NAME: <span class="line name-line"></span> AGE: <span class="line age-line"></span> SEX: <span class="line sex-line"></span> DATE: <span class="line date-line"></span>
         </div>
         <div class="prescription-area">
-            <!-- Rx. will be added via CSS ::before pseudo-element -->
         </div>
         <div class="footer">
-            বিঃদ্রঃ: পুরোনো প্রেসক্রিপশন সাথে আনবেন। জরুরি অবস্থায় নিকটবর্তী হাসপাতালে যোগ করুন।
+            বিঃদ্রঃ: পুরোনো প্রেসক্রিপশন সাথে আনবেন। জরুরি অবস্থায় নিকটবর্তী হাসপাতালে যোগাযোগ করুন।
         </div>
     </div>
     </div>
@@ -90,6 +92,7 @@
                     onclone: function(clonedDoc) {
                         const clonedContainer = clonedDoc.querySelector('.container');
                         clonedContainer.style.transform = 'none';
+                        clonedContainer.style.padding = '1cm 0.026458333cm'; // Match the print padding
                     }
                 }).then(canvas => {
                     const dataUrl = canvas.toDataURL('image/png');

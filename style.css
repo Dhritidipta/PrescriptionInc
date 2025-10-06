@@ -49,7 +49,7 @@ body {
     transform: scale(0.4); /* Keep scale but adjust context */
     transform-origin: top left; /* Change origin to top left for better scrolling */
     margin: 0 auto;
-    padding: 1cm 1.5cm;
+    padding: 1cm 0.026458333cm; /* Match the print padding */
     box-sizing: border-box;
     border: none;
     overflow: visible; /* Ensure all content is visible */
@@ -72,13 +72,26 @@ body {
     height: 29.7cm; /* A4 height */
     position: relative;
     margin: 0 auto;
-    padding: 1cm 1.5cm; /* Adjusted to match image margins */
+    padding: 1cm 0.026458333cm; /* Adjusted to match image margins */
     box-sizing: border-box;
     border: none; /* Removed border for exact match */
     overflow: hidden;
     background-color: white;
 }
 
+.complimentary {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.complimentary span {
+    font-family: Arial, sans-serif;
+    font-size: 8pt;
+}
 .header {
     display: flex;
     justify-content: space-between;
@@ -217,7 +230,7 @@ body {
 }
 
 .name-line {
-    width: 200px;
+    width: 300px;
 }
 
 .age-line {
@@ -229,7 +242,7 @@ body {
 }
 
 .date-line {
-    width: 120px;
+    width: 130px;
 }
 
 .prescription-area {
@@ -243,7 +256,7 @@ body {
 .prescription-area::after {
     content: '';
     position: absolute;
-    left: 33.33%; /* Position at 1/3rd of the width */
+    left: 25%; /* Position at 1/3rd of the width */
     top: 0;
     bottom: 0;
     width: 2px; /* Make the line slightly thicker */
@@ -254,7 +267,7 @@ body {
     content: 'Rx.';
     position: absolute;
     top: 0;
-    left: calc(33.33% + 15px); /* Position after the vertical line plus some padding */
+    left: calc(25% + 15px); /* Position after the vertical line plus some padding */
     font-family: 'Brush Script MT', cursive;
     font-size: 24px;
     color: #000;
@@ -419,6 +432,7 @@ body {
         position: absolute;
         left: 50%;
         margin: 20px auto;
+        padding: 1cm 0.026458333cm; /* Match the print padding */
         background-color: white;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
         transform: scale(0.4) translateX(-50%);
@@ -474,7 +488,7 @@ body {
     .container {
         border: none;
         margin: 0;
-        padding: 1cm 1.5cm;
+        padding: 1cm 0.026458333cm;
         width: 21cm;
         height: 29.7cm;
         box-shadow: none;
