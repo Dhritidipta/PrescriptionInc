@@ -1,2 +1,4 @@
 .vscode
 target/
+.vercel
+.env*.local
