@@ -1,11 +1,9 @@
-// Preferences
-const isMobile = () => screen.width <= 768
-
+// Admin page JavaScript
+// API base configuration (same as index.js)
 const API_BASE = (() => {
     if (window.API_BASE) return window.API_BASE.replace(/\/$/, '');
     if (window.API_BASE_URL) {
         const url = window.API_BASE_URL.replace(/\/$/, '');
-        // Replace placeholder if not replaced during build
         if (url !== '{{API_BASE_URL}}') {
             return url;
         }
@@ -16,6 +14,71 @@ const API_BASE = (() => {
     }
     return 'https://prescriptioninc-production.up.railway.app';
 })();
+
+// Admin upload function
+async function uploadVersion() {
+    const adminStatus = document.getElementById('admin-status');
+    adminStatus.textContent = 'Generating PDF...';
+
+    const container = document.querySelector('.container');
+    if (!container) {
+        adminStatus.textContent = 'No container found to capture.';
+        return;
+    }
+
+    try {
+        const version = document.getElementById('admin-version').value || 'v1.0';
+        const notes = document.getElementById('admin-notes').value || '';
+        const printed = parseInt(document.getElementById('admin-printed').value || '1', 10);
+        const file_input = document.getElementById('admin-file');
+        const file = file_input && file_input.files && file_input.files[0];
+
+        if (!file) {
+            adminStatus.textContent = 'No file selected to upload.';
+            return;
+        }
+
+        // Build multipart form data and append the actual File object
+        const fd = new FormData();
+        fd.append('file', file, file.name);
+        fd.append('version', version);
+        fd.append('notes', notes);
+        fd.append('printedCopies', String(printed));
+        
+        const res = await fetch(API_BASE + '/api/admin/uploadVersion', {
+            method: 'POST',
+            body: fd 
+        });
+
+        if (!res.ok) throw new Error('Server render upload failed: ' + res.status);
+        const json = await res.json();
+        adminStatus.textContent = 'Uploaded version ' + json.version + ' (id:' + json.id + ')';
+        
+        // Clear form
+        document.getElementById('admin-version').value = '';
+        document.getElementById('admin-notes').value = '';
+        document.getElementById('admin-printed').value = '1';
+        document.getElementById('admin-file').value = '';
+        
+        return;
+    } catch (err) {
+        console.error(err);
+        adminStatus.textContent = 'Error: ' + (err.message || err);
+    }
+}
+
+// Hook admin save button on load
+window.addEventListener('load', () => {
+    const adminBtn = document.getElementById('admin-save-btn');
+    if (adminBtn) adminBtn.addEventListener('click', uploadVersion);
+});
+
+
+// Render prescription details for a version
+function renderPrescription(version) {
+	console.log("Rendering prescription for version: ", version);
+}
+
 
 // Utility to fetch versions from server, fallback to empty list if endpoint not available
 async function fetchVersions() {
@@ -45,9 +108,7 @@ async function fetchVersionById(id) {
 function renderVersionsList(versions) {
 
     let sidebar = document.getElementById('versions-sidebar');
-    if (isMobile()){
-        
-    }
+   
 	if (!sidebar) {
 		sidebar = document.createElement('div');
 		sidebar.id = 'versions-sidebar';
@@ -63,36 +124,6 @@ function renderVersionsList(versions) {
 		btn.onclick = () => selectVersion(v.id);
 		sidebar.appendChild(btn);
 	});
-}
-
-// Render prescription details for a version
-function renderPrescription(version) {
-	// Main prescription container (assume exists)
-	let main = document.getElementById('prescription-main');
-	if (!main) {
-		main = document.createElement('div');
-		main.id = 'prescription-main';
-		main.style = 'margin:20px;';
-		document.body.appendChild(main);
-	}
-	// If server provided a filename (pdf stored), embed the PDF. Otherwise show content.
-	let html = `
-		<h2>Prescription - ${version.version}</h2>
-		<div><strong>Modified:</strong> ${version.modifiedDate}</div>
-		<div><strong>Notes:</strong> ${version.notes}</div>
-		<div><strong>Printed Copies:</strong> ${version.printedCopies}</div>
-		<hr>
-	`;
-
-	if (version && version.filename) {
-		html += `<div style="height:800px;"><embed src="/api/version/${version.id}/pdf" type="application/pdf" width="100%" height="100%"></embed></div>`;
-	} else if (version && version.content) {
-		html += `<div id="prescription-content">${version.content}</div>`;
-	} else {
-		html += `<div>No preview available for this version.</div>`;
-	}
-
-	main.innerHTML = html;
 }
 
 // Handle version selection
@@ -114,3 +145,4 @@ window.addEventListener('DOMContentLoaded', () => {
 		}
 	});
 });
+

@@ -177,3 +177,6 @@ function saveImage() {
         }
     });
 }
+
+// Admin functionality has been moved to admin.js
+// This file now only contains UI helper functions for mobile preview and export

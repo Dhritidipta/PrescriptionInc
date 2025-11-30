@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Prescription Pad - Dr. Tapaprabha Roy</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="config.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Brush+Script+MT&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="mobile-preview-container">
+        <div class="mobile-preview"></div>
+        <div class="preview-message">Tap to view full prescription</div>
+        <div class="mobile-button-group">
+            <button onclick="savePDF()">Save as PDF</button>
+            <button onclick="saveImage()">Save as Image</button>
+        </div>
+    </div>
+    <div class="preview-area">
+        <div class="container">
+            <div class="complimentary">
+                <span>Complimentary</span>
+            </div>
+            <div class="header">
+                <div class="left">
+                    <p class="doctor-name">Dr. Tapaprabha Roy</p>
+                    <p>MBBS, MS Orthopaedics(Cal)</p>
+                    <p class="title">Consultant Trauma, Arthroscopy, Arthroplasty Surgeon</p>
+                    <p>Attached with Calcutta National Medical College & Hospital</p>
+                </div>
+                <div class="middle">
+                    <p class="motto">I Treat, HE Cures</p>
+                    <div class="logo"><img src="./res/dr_logo.png" alt="Doctor Logo" /></div>
+                    <p class="reg">Regd. No.- 86986</p>
+                </div>
+                <div class="right">
+                    <p class="doctor-name">ডা. তপপ্রভ রায়</p>
+                    <p>এম বি বি এস, এম এস অর্থোপেডিকস (ক্যাল)</p>
+                    <p class="title">অভিজ্ঞ ট্রমা, আর্থ্রোস্কোপি, আর্থ্রোপ্লাস্টি সার্জন</p>
+                    <p>বর্তমানে ক্যালকাটা ন্যাশনাল মেডিক্যাল কলেজ ও হাসপাতালের সঙ্গে যুক্ত</p>
+                </div>
+            </div>
+            <div class="patient-info">
+                NAME: <span class="line name-line"></span> AGE: <span class="line age-line"></span> SEX: <span class="line sex-line"></span> DATE: <span class="line date-line"></span>
+            </div>
+            <div class="prescription-area">
+            </div>
+            <div class="footer">
+                বিঃদ্রঃ: পুরোনো প্রেসক্রিপশন সাথে আনবেন। জরুরি অবস্থায় নিকটবর্তী হাসপাতালে যোগাযোগ করুন।
+            </div>
+        </div>
+    </div>
+    <div class="button-group">
+        <button onclick="window.print()">Print</button>
+        <button onclick="savePDF()">Save as PDF</button>
+        <button onclick="saveImage()">Save as Image</button>
+    </div>
+
+    <!-- Admin panel -->
+    <div id="admin-panel" style="position:fixed;right:10px;top:10px;background:#fff;border:1px solid #ddd;padding:12px;z-index:2000;width:320px;box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+        <h4 style="margin:0 0 8px 0">Admin: Save Version</h4>
+        <label>Version:<br><input id="admin-version" type="text" value="v1.0" style="width:100%" required></label>
+        <label>Notes:<br><input id="admin-notes" type="text" style="width:100%"></label>
+        <label>Printed Copies:<br><input id="admin-printed" type="number" value="1" style="width:100%"></label>
+        <label>Upload PDF:<br><input id="admin-file" type="file" accept=".pdf"></label>
+        <div style="margin-top:8px;text-align:right;">
+            <button id="admin-save-btn">Save Version</button>
+        </div>
+        <div id="admin-status" style="margin-top:8px;font-size:12px;color:#555"></div>
+    </div>
+
+    <script src="admin.js" defer></script>
+    <script src="prescription-ui.js" defer></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+</body>
+</html>
+
