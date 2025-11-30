@@ -7,6 +7,7 @@
   <groupId>com.prescription.app</groupId>
   <artifactId>pres-app</artifactId>
   <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
 
   <name>pres-app</name>
   <url>https://prescription-inc.vercel.app</url>
@@ -45,7 +46,6 @@
           <artifactId>spring-boot-maven-plugin</artifactId>
           <configuration>
             <mainClass>${start.class}</mainClass>
-            <layout>WAR</layout>
           </configuration>
           <executions>
             <execution>
@@ -54,7 +54,7 @@
               </goals>
             </execution>
           </executions>
-		    </plugin>
+        </plugin>
         <plugin>
           <artifactId>maven-clean-plugin</artifactId>
           <version>3.1.0</version>
@@ -70,10 +70,6 @@
         <plugin>
           <artifactId>maven-surefire-plugin</artifactId>
           <version>2.22.1</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-jar-plugin</artifactId>
-          <version>3.0.2</version>
         </plugin>
         <plugin>
           <artifactId>maven-install-plugin</artifactId>
@@ -94,5 +90,23 @@
         </plugin>
       </plugins>
     </pluginManagement>
+    <!-- Enable the Spring Boot repackage goal so the produced jar includes dependencies -->
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <version>2.4.4</version>
+        <configuration>
+          <mainClass>com.prescription.app.App</mainClass>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>repackage</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
   </build>
 </project>
