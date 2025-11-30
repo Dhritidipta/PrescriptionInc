@@ -11,9 +11,4 @@ class HomeController {
     public String home() {
         return "redirect:https://prescription-inc.vercel.app/";
     }
-
-    // @GetMapping("/list")
-    // public String PresListController(){
-    //     return "Here is the list of Prescriptions";
-    // }
 }
