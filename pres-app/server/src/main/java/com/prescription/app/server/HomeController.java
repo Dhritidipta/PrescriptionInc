@@ -9,11 +9,11 @@ class HomeController {
 
     @GetMapping("/")
     public String home() {
-        return "redirect:https://prescription-inc.vercel.app/";
+        return "HELLO WORLD";
     }
 
-    // @GetMapping("/list")
-    // public String PresListController(){
-    //     return "Here is the list of Prescriptions";
-    // }
+    @GetMapping("/list")
+    public String PresListController(){
+        return "Here is the list of Prescriptions";
+    }
 }
